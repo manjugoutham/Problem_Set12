@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 type Contact struct {
 	FirstName string
@@ -13,17 +17,50 @@ type Contact struct {
 	Email     string
 }
 
+type AddressBook struct {
+	Contacts []Contact
+}
+
+func (a *AddressBook) AddContact(c Contact) {
+	a.Contacts = append(a.Contacts, c)
+}
+
 func main() {
+	addressBook := AddressBook{}
+
+	fmt.Println("Add a new contact:")
+
+	reader := bufio.NewReader(os.Stdin)
+
+	fmt.Print("Enter the FirstName: ")
+	firstName, _ := reader.ReadString('\n')
+	fmt.Print("Enter the LastName: ")
+	lastName, _ := reader.ReadString('\n')
+	fmt.Print("Enter the Address: ")
+	address, _ := reader.ReadString('\n')
+	fmt.Print("Enter the City: ")
+	city, _ := reader.ReadString('\n')
+	fmt.Print("Enter the State: ")
+	state, _ := reader.ReadString('\n')
+	fmt.Print("Enter the Zip: ")
+	zip, _ := reader.ReadString('\n')
+	fmt.Print("Enter the Phone Number: ")
+	phone, _ := reader.ReadString('\n')
+	fmt.Print("Enter the Email: ")
+	email, _ := reader.ReadString('\n')
+
 	contact := Contact{
-		FirstName: "Goutham",
-		LastName:  "Y",
-		Address:   "RT Nagar Banglore",
-		City:      "Banglore",
-		State:     "Karnataka",
-		Zip:       "543211",
-		Phone:     "9876543211",
-		Email:     "goutham@gmail.com",
+		FirstName: firstName,
+		LastName:  lastName,
+		Address:   address,
+		City:      city,
+		State:     state,
+		Zip:       zip,
+		Phone:     phone,
+		Email:     email,
 	}
 
-	fmt.Printf("Created contact details are : %+v\n", contact)
+	addressBook.AddContact(contact)
+
+	fmt.Printf("Contact added:\n%+v\n", contact)
 }
